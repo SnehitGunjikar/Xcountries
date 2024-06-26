@@ -27,14 +27,14 @@ const Tile = ({ flagUrl, name, altFlag }) => {
 };
 
 function Countries() {
-    const API_URL = "https://restcountries.com/v3.1/all";
+    const API_URL = "https://xcountries-backend.azurewebsites.net/all";
     const [countries, setCountries] = useState([]);
 
     useEffect(() => {
         fetch(API_URL)
             .then((response) => response.json())
             .then((data) => setCountries(data))
-            .catch((error) => console.error("Error fetching data:", error));
+            .catch((error) => console.error("Error fetching data: ", error));
     }, []);
 
     // console.log({ countries });
@@ -51,10 +51,10 @@ function Countries() {
         >
             {countries.map((country) => (
                 <Tile
-                    key={country.cca3}
-                    flagUrl={country.flags.png}
-                    name={country.name.common}
-                    altFlag={country.flags.alt || `Flag of ${country.name.common}`}
+                    key={country.id}
+                    flagUrl={country.flag}
+                    name={country.name}
+                    altFlag={country.abbr || `Flag of ${country.name}`}
                 />
             ))}
         </div>
